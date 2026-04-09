@@ -25,8 +25,7 @@ WEBAPP_URL = "https://terabox-video-downloader-and-stream.onrender.com"
 PORT = 5000
 
 COOKIE_FILES = [
-    "cookies1.txt", "cookies2.txt", "cookies3.txt",
-    "cookies4.txt", "cookies5.txt"
+    "cookies1.txt"
 ]
 current_cookie_index = 0
 
