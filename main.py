@@ -67,8 +67,8 @@ API_HEADERS = {
     "accept": "*/*",
     "accept-language": "en-US,en;q=0.9",
     "content-type": "application/json",
-    "origin": "https://iteraplay.com",
-    "referer": "https://iteraplay.com/",
+    "origin": "https://iteraplay.in",
+    "referer": "https://iteraplay.in/",
     "sec-ch-ua": '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
     "sec-ch-ua-mobile": "?0",
     "sec-ch-ua-platform": '"Windows"',
@@ -98,15 +98,15 @@ def create_session(cookie_file: str, proxy_url: str) -> cf_requests.Session:
     proxies = {"http": proxy_url, "https": proxy_url} if proxy_url else None
     session = cf_requests.Session(impersonate="chrome124", proxies=proxies)
     try:
-        session.get("https://iteraplay.com/", headers=HEADERS, timeout=30)
+        session.get("https://iteraplay.in/", headers=HEADERS, timeout=30)
         time.sleep(0.5)
         if os.path.exists(cookie_file):
             all_cookies = load_netscape_cookies(cookie_file)
             inject = {k: v for k, v in all_cookies.items()
                       if k in ("login_token", "remember_me")}
             for name, value in inject.items():
-                session.cookies.set(name, value, domain="iteraplay.com")
-            session.get("https://iteraplay.com/", headers=HEADERS, timeout=30)
+                session.cookies.set(name, value, domain="iteraplay.in")
+            session.get("https://iteraplay.in/", headers=HEADERS, timeout=30)
     except Exception as e:
         logger.error(f"Session warmup error: {e}")
     return session
@@ -131,7 +131,7 @@ def fetch_video_info(url: str) -> dict:
         
         try:
             resp = session.post(
-                "https://iteraplay.com/api/download",
+                "https://iteraplay.in/api/download",
                 headers=API_HEADERS,
                 json={"url": url},
                 timeout=30
